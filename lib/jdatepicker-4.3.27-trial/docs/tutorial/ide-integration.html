@@ -1,0 +1,62 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>4.&nbsp;IDE Integration</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.3"><link rel="home" href="index.html" title="Swing Date Selection using the JDatePicker Suite"><link rel="up" href="introduction.html" title="Chapter&nbsp;1.&nbsp;Introduction"><link rel="prev" href="install.html" title="3.&nbsp;How to Install"><link rel="next" href="changes.html" title="5.&nbsp;What's New"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.&nbsp;IDE Integration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="install.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Introduction</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="changes.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ide-integration"></a>4.&nbsp;IDE Integration</h2></div></div></div><p>This chapter shows how the JDatePicker suite components can be
+      integrated within various IDEs. One thing that must remembered is that
+      both <span class="emphasis"><em>jdatepicker.jar</em></span> and
+      <span class="emphasis"><em>jdatepicker-beans.jar</em></span> must be registered. The
+      purpose of every jar from the distribution is explained <a class="link" href="install.html" title="3.&nbsp;How to Install">here</a>.</p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="ide-netbeans"></a>4.1.&nbsp;NetBeans</h3></div></div></div><p>This section shows how to integrate the JDatePicker suite
+        components within NetBeans 5.0.</p><div class="orderedlist"><p class="title"><b>Create a library</b></p><ol type="1"><li><p>Select <span class="bold"><strong>Tools|Library
+            Manager</strong></span> to open the <span class="bold"><strong>Library
+            Manager</strong></span> dialog.</p></li><li><p>Click the <span class="bold"><strong>New Library...</strong></span>
+            button under the left pane to open the <span class="bold"><strong>New
+            Library</strong></span> dialog:</p><div class="orderedlist"><ol type="i"><li><p>Enter a name (JDatePicker) for the new library in the
+                <span class="bold"><strong>Library Name</strong></span> field.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span> to close the
+                dialog.</p></li></ol></div></li><li><p>Click the <span class="bold"><strong>Add JAR/Folder...</strong></span>
+            button to open the <span class="bold"><strong>Browse
+            JAR/Folder</strong></span> dialog:</p><div class="orderedlist"><ol type="i"><li><p>Select the <span class="emphasis"><em>jdatepicker.jar</em></span> and
+                <span class="emphasis"><em>jdatepicker-beans.jar</em></span> files from the
+                directory where you keep them.</p></li><li><p>Click <span class="bold"><strong>Add JAR/Folder</strong></span> to
+                close the dialog.</p></li></ol></div></li><li><p>Click <span class="bold"><strong>OK</strong></span> to close the
+            <span class="bold"><strong>Library Manager</strong></span> dialog.</p></li></ol></div><div class="orderedlist"><p class="title"><b>Register components in the palette</b></p><ol type="1"><li><p>Select <span class="bold"><strong>Tools|Palette Manager|Swing/AWT
+            Components</strong></span> to open the <span class="bold"><strong>Palette
+            Manager</strong></span> dialog.</p></li><li><p>Click the <span class="bold"><strong>New Category...</strong></span>
+            button to open the <span class="bold"><strong>New Palette
+            Category</strong></span> dialog:</p><div class="orderedlist"><ol type="i"><li><p>Enter a name (JDatePicker) for the new palette category.
+                This new category will contain the JDatePicker suite
+                components.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span> to close the
+                dialog.</p></li></ol></div></li><li><p>Click the <span class="bold"><strong>Add from
+            Library...</strong></span> button to open the <span class="bold"><strong>Install Components to Palette</strong></span> wizard
+            dialog:</p><div class="orderedlist"><ol type="i"><li><p>Click the name of the library that contains the
+                components (JDatePicker) from the list. Click <span class="bold"><strong>Next</strong></span>.</p></li><li><p>Select all the available components. Click <span class="bold"><strong>Next</strong></span>.</p></li><li><p>Click the name of the palette category (JDatePicker)
+                where the components should be installed.</p></li><li><p>Click <span class="bold"><strong>Finish</strong></span> to close
+                the dialog.</p></li></ol></div></li><li><p>Click <span class="bold"><strong>Close</strong></span> to close the
+            <span class="bold"><strong>Palette Manager</strong></span> dialog.</p><p>You should now see your category in the component palette.
+            When you expand it, icons for the beans you've added will appear.
+            When you are in Design mode you will be able to drop the
+            components on the container you're using.</p></li></ol></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="ide-jbuilder"></a>4.2.&nbsp;Borland JBuilder</h3></div></div></div><p>The JBuilder documentation contains full information on how to
+        use JavaBeans. This section provides an overview on how to integrate
+        the JDatePicker suite components within JBuilder 2005.</p><div class="orderedlist"><p class="title"><b>Create a library</b></p><ol type="1"><li><p>Select <span class="bold"><strong>Tools|Configure|Libraries</strong></span>.</p></li><li><p>Click the <span class="bold"><strong>New</strong></span> button under
+            the left pane to open the <span class="bold"><strong>New
+            Library</strong></span> wizard.</p></li><li><p>Enter a name (JDatePicker) for the new library in the
+            <span class="bold"><strong>Name</strong></span> field.</p></li><li><p>Click the <span class="bold"><strong>Add</strong></span> button and
+            select the <span class="emphasis"><em>jdatepicker.jar</em></span> and
+            <span class="emphasis"><em>jdatepicker-beans.jar</em></span> files from the
+            directory where you keep them.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span>.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span> to close the
+            <span class="bold"><strong>New Library</strong></span> wizard.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span> to close the
+            <span class="bold"><strong>Configure Libraries</strong></span> dialog
+            box.</p></li></ol></div><div class="orderedlist"><p class="title"><b>Register components in the palette</b></p><ol type="1"><li><p>Select <span class="bold"><strong>Tools|Configure|Palette</strong></span>.</p></li><li><p>Click the <span class="bold"><strong>Add</strong></span> button under
+            the left pane to open the <span class="bold"><strong>Add
+            Page</strong></span> dialog.</p></li><li><p>Enter a name (JDatePicker) and a description for the new
+            palette page.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span> to close the
+            <span class="bold"><strong>Add Page</strong></span> dialog.</p></li><li><p>Click on this new page name and select the <span class="bold"><strong>Add Components</strong></span> tab of the <span class="bold"><strong>Palette Properties</strong></span> dialog.</p></li><li><p>Click the <span class="bold"><strong>Select Library</strong></span>
+            button and browse to where you installed your JDatePicker
+            library.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span>.</p></li><li><p>Click the <span class="bold"><strong>Add from Selected
+            Library</strong></span> button to view <span class="bold"><strong>Results</strong></span> dialog, which contains the list of
+            Beans in your selected library.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span> to close the
+            <span class="bold"><strong>Results</strong></span> dialog.</p></li><li><p>Click <span class="bold"><strong>OK</strong></span> to close the
+            <span class="bold"><strong>Palette Properties</strong></span> dialog.</p></li></ol></div><p>You should now see your page name in the component palette. When
+        you click on it, icons for the Beans you added will appear. When you
+        are in JBuilder's Design mode you will be able to drop the components
+        into the frame.</p><p>For more information, see the JBuilder help.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="ide-idea"></a>4.3.&nbsp;IntelliJ IDEA</h3></div></div></div><p>The IDEA documentation gives all the details on how to integrate
+        custom beans from third-party libraries. The <a class="ulink" href="http://www.jetbrains.com/idea/docs/help/uidesigner/custompalette.html" target="_top">documentation</a>
+        is really good, so there is no need to duplicate it here.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="install.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="introduction.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="changes.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.&nbsp;How to Install&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;5.&nbsp;What's New</td></tr></table></div></body></html>

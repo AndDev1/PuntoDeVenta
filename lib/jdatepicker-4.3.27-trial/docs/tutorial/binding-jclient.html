@@ -1,0 +1,18 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>2.&nbsp;ADF JClient Binding</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.3"><link rel="home" href="index.html" title="Swing Date Selection using the JDatePicker Suite"><link rel="up" href="advanced.html" title="Chapter&nbsp;3.&nbsp;Advanced Topics"><link rel="prev" href="advanced.html" title="Chapter&nbsp;3.&nbsp;Advanced Topics"><link rel="next" href="binding-jgoodies.html" title="3.&nbsp;JGoodies Binding"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.&nbsp;ADF JClient Binding</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="advanced.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;3.&nbsp;Advanced Topics</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="binding-jgoodies.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="binding-jclient"></a>2.&nbsp;ADF JClient Binding</h2></div></div></div><p>The <tt class="classname">JDatePicker</tt> and
+      <tt class="classname">JDateField</tt> components can be used with the Oracle
+      ADF JClient data binding framework. In order to allow the date editing
+      components to work with the binding framework, we provide a lightweight
+      date model (<tt class="classname">DateEditComponentBinding</tt>) that binds
+      a date edit component to a BC4J attribute.</p><p>Here's how to do the actual binding:</p><pre class="programlisting">//This is how the binding is done for a default Swing component. Actually, this code is generated automatically by JDeveloper.
+JTextField mEmployeeId = new JTextField();
+mEmployeeId.setDocument((Document)panelBinding.bindUIControl("EmployeeId", mEmployeeId));
+
+//This is how you bind JDatePicker or JDateField to edit a certain attribute.
+JDateEditComponent mHireDate = new JDatePicker(); //or new JDateField()
+
+//This code must be added by hand in the ADF Swing form.
+mHireDate.setDateModel(DateEditComponentBinding.createAttributeBinding(panelBinding, mHireDate, "EmployeeView1", null, "EmployeeView1Iter", "HireDate"));</pre><p>The model is placed in the jdatepicker-jclient.jar file. Be sure
+      to include it in your classpath. You can also access the model's source
+      code to see how it is implemented. See the src/jclient directory.</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="advanced.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="advanced.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="binding-jgoodies.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;3.&nbsp;Advanced Topics&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;3.&nbsp;JGoodies Binding</td></tr></table></div></body></html>

@@ -1,0 +1,99 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.puntodeventa.global.printservice;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import javax.print.*;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Copies;
+import javax.print.attribute.standard.MediaSizeName;
+import javax.print.attribute.standard.PrintQuality;
+import org.icepdf.core.exceptions.PDFSecurityException;
+import org.icepdf.core.pobjects.Document;
+import org.icepdf.core.views.DocumentViewController;
+import org.icepdf.ri.common.PrintHelper;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.views.DocumentViewControllerImpl;
+
+/**
+ *
+ * @author Nato
+ */
+public class printService {
+
+    /*
+     * Imprime archivo en la impresora predeterminada del equipo
+     */
+    public static void impresion() {
+        // tu archivo a imprimir
+        String file = "c:\\anadirUsuario.gif";
+
+        // definimos el tipo a imprimir
+        DocFlavor docFlavor = DocFlavor.INPUT_STREAM.GIF;
+
+        // establecemos algunos atributos de la impresora
+        PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
+        aset.add(MediaSizeName.ISO_A4);
+        aset.add(new Copies(1));
+
+        // mi impresora por default
+        PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+        System.out.println("Impresora: " + service.getName());
+
+        Doc docPrint;
+        try {
+            docPrint = new SimpleDoc(new FileInputStream(file), docFlavor, null);
+        } catch (FileNotFoundException e1) {
+            System.out.println("Archivo no encontrado: " + e1.getMessage());
+            return;
+        }
+
+        // inicio el proceso de impresion...
+        DocPrintJob printJob = service.createPrintJob();
+        try {
+            printJob.print(docPrint, aset);
+            System.out.println("salida...");
+        } catch (PrintException e) {
+            System.out.println("Error de impresion: " + e.getMessage());
+        }
+    }
+    
+    /*
+     * @Params type Indica el tipo de proceso que realiza: ventas, Corte para saber en qye directorio indicar
+     * @Params if_folio indicara el nombre del Reporte a generar en disco
+     */
+    public static void printICEPdf(String type, String id_folio) throws PDFSecurityException  {
+        try {
+            String file = "D:\\vPuntoVenta/"+type+"/"+id_folio+".pdf";
+            Document pdf = new Document() {};
+            pdf.setFile(file);
+            SwingController sc = new SwingController();
+            DocumentViewController vc = new DocumentViewControllerImpl(sc);
+            vc.setDocument(pdf);
+    // create a new print helper with a specified paper size and print
+    // quality
+            PrintHelper printHelper = new PrintHelper(vc, pdf.getPageTree(),
+                    MediaSizeName.NA_LEGAL, PrintQuality.DRAFT);
+    // try and print pages 1 - 10, 1 copy, scale to fit paper.
+            PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+            
+            //printHelper.setupPrintService(defaultService, 0, 9, 1, true);
+            printHelper.setupPrintService(defaultService, 0, 0,1,true);
+    // print the document
+            printHelper.print();
+        } catch (PrintException ex) {
+            System.out.println("1: " + ex.getMessage());
+        } catch (org.icepdf.core.exceptions.PDFException ex) {
+            System.out.println("2: " + ex.getMessage());
+        } catch (PDFSecurityException ex) {
+            System.out.println("3: "+ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("4: "+ex.getMessage());
+        }
+    }
+}

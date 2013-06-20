@@ -1,0 +1,127 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>7.&nbsp;Frequently Asked Questions</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.3"><link rel="home" href="index.html" title="Swing Date Selection using the JDatePicker Suite"><link rel="up" href="introduction.html" title="Chapter&nbsp;1.&nbsp;Introduction"><link rel="prev" href="knownissues.html" title="6.&nbsp;Known Issues"><link rel="next" href="support.html" title="8.&nbsp;More Help"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.&nbsp;Frequently Asked Questions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="knownissues.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;1.&nbsp;Introduction</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="support.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="faq"></a>7.&nbsp;Frequently Asked Questions</h2></div></div></div><div class="qandaset"><dl><dt>7.1.  <a href="faq.html#d0e2251">Questions</a></dt><dd><dl><dt> <a href="faq.html#d0e2254">Is it possible to auto fill missing fields with default
+              values when editing a date?</a></dt><dt> <a href="faq.html#string-dates">How can JDatePicker be used with
+              String dates?</a></dt><dt> <a href="faq.html#d0e2343">How can JDatePicker be used with
+              java.sql.Date dates?</a></dt><dt> <a href="faq.html#d0e2391">Is there a way to access the editing part of
+              JDatePicker or
+              JDateField?</a></dt></dl></dd></dl><table border="0" summary="Q and A Set"><col align="left" width="1%"><tbody><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a name="d0e2251"></a>7.1. Questions</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt> <a href="faq.html#d0e2254">Is it possible to auto fill missing fields with default
+              values when editing a date?</a></dt><dt> <a href="faq.html#string-dates">How can JDatePicker be used with
+              String dates?</a></dt><dt> <a href="faq.html#d0e2343">How can JDatePicker be used with
+              java.sql.Date dates?</a></dt><dt> <a href="faq.html#d0e2391">Is there a way to access the editing part of
+              JDatePicker or
+              JDateField?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a name="d0e2254"></a><a name="d0e2255"></a></td><td align="left" valign="top"><b><p>Is it possible to auto fill missing fields with default
+              values when editing a date?</p></b></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Yes, it is possible. When a date is edited but not all its
+              fields contain a value, then the edited date is rejected because
+              it is not valid. If a date edit component
+              (<tt class="classname">JDatePicker</tt> or
+              <tt class="classname">JDateField</tt>) uses the date format
+              "MM/dd/yyyy HH:mm" and the hour and minute fields are not filled
+              then the date will be rejected. To fix this, you should override
+              the <tt class="function"><a target="_blank" href="../api/com/standbysoft/component/date/swing/JDateEditComponent.html#commitEdit()">commitEdit()</a></tt>
+              method and fill those fields with some default values before the
+              date is validated.</p><p>The following example shows how to set a default value of
+              zero for the hour and minute fields.</p><pre class="programlisting">JDatePicker editComponent = new JDatePicker() {
+  public void commitEdit() {
+    if (!dateModel.isSet(Calendar.HOUR)) {
+      dateModel.set(Calendar.HOUR, 0);
+    }
+    if (!dateModel.isSet(Calendar.MINUTE)) {
+      dateModel.set(Calendar.MINUTE, 0);
+    }
+
+    super.commitEdit();
+  }
+}; </pre><p>The dateModel field is a protected field in
+              <tt class="classname">JDateEditComponent</tt> that gives you access
+              to the <tt class="classname">DateModel</tt> that keeps information
+              about the edited date. All you have to do is to use the
+              <tt class="function"><a target="_blank" href="../api/com/standbysoft/component/date/DateModel.html#set(int, int)">set(int,
+              int)</a></tt> method to specify valid values for the missing
+              fields.</p></td></tr><tr class="question"><td align="left" valign="top"><a name="string-dates"></a><a name="d0e2286"></a></td><td align="left" valign="top"><b><p>How can <tt class="classname">JDatePicker</tt> be used with
+              <tt class="classname">String</tt> dates?</p></b></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p><tt class="classname">JDatePicker</tt> only handles
+              <tt class="classname">java.util.Date</tt> objects because this is
+              the standard format for dates in Java. So, if you either want to
+              set or to get a date from <tt class="classname">JDatePicker</tt>,
+              you must deal with a <tt class="classname">java.util.Date</tt>
+              object. But real-world situations show that dates can be stored
+              in various formats, most frequently as
+              <tt class="classname">String</tt> objects. This means that you
+              cannot use such dates with <tt class="classname">JDatePicker</tt>
+              directly.</p><p>Let's take a small example to see how this problem can be
+              solved. Let's suppose that you have a database with dates
+              represented as <tt class="classname">Strings</tt> of the form
+              yyyy-MM-dd. You want to load these dates into your application
+              and after editing, you want to save them back to your
+              database.</p><p>The first step is to load the
+              <tt class="classname">String</tt> date in
+              <tt class="classname">JDatePicker</tt> for editing:</p><pre class="programlisting">String stringDate = "2002-02-22";
+Date date = convertStringToDate(stringDate, "yyyy-MM-dd");
+datePicker.setSelectedDate(date);</pre><p>The final step is to get the date from
+              <tt class="classname">JDatePicker</tt> to save it:</p><pre class="programlisting">Date date = datePicker.getSelectedDate();
+String stringDate = convertDateToString(date, "yyyy-MM-dd");</pre><p>As you can see, we use two conversion methods to help us
+              in the process. A possible implementation for these methods
+              is:</p><pre class="programlisting">private Date convertStringToDate(String stringDate, String pattern) {
+  Date date = null;
+
+  if (stringDate != null) {
+    SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+    try {
+      date = sdf.parse(stringDate);
+    } catch (ParseException e) {
+    }
+  }
+
+  return date;
+}</pre><pre class="programlisting">private String convertDateToString(Date date, String pattern) {
+  String stringDate = null;
+
+  if (date != null) {
+    SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+    stringDate = sdf.format(date);
+  }
+
+  return stringDate;
+}</pre></td></tr><tr class="question"><td align="left" valign="top"><a name="d0e2343"></a><a name="d0e2344"></a></td><td align="left" valign="top"><b><p>How can <tt class="classname">JDatePicker</tt> be used with
+              <tt class="classname">java.sql.Date</tt> dates?</p></b></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Please see the <a class="link" href="faq.html#string-dates" title="Question">above
+              section</a> to understand why
+              <tt class="classname">JDatePicker</tt> handles
+              <tt class="classname">java.util.Date</tt> dates only.</p><p>The following code shows how to use sql dates with
+              <tt class="classname">JDatePicker</tt>. The first step is to load
+              the <tt class="classname">java.sql.Date</tt> date in
+              <tt class="classname">JDatePicker</tt> for editing:</p><pre class="programlisting">java.sql.Date sqlDate = myDate;
+java.util.Date date = convertSqlDateToUtilDate(sqlDate);
+datePicker.setSelectedDate(date);</pre><p>The final step is to get the date from
+              <tt class="classname">JDatePicker</tt>:</p><pre class="programlisting">java.util.Date date = datePicker.getSelectedDate();
+java.sql.Date sqlDate = convertUtilDateToSqlDate(date);</pre><p>As you can see, we use two conversion methods to help us
+              in the process. A possible implementation for these methods
+              is:</p><pre class="programlisting">private java.util.Date convertSqlDateToUtilDate(java.sql.Date sqlDate) {
+  java.util.Date date = null;
+
+  if (sqlDate != null) {
+    date = new java.util.Date(sqlDate.getTime());
+  }
+
+  return date;
+}</pre><pre class="programlisting">private java.sql.Date convertUtilDateToSqlDate(java.util.Date date) {
+  java.sql.Date sqlDate = null;
+
+  if (date != null) {
+    sqlDate = new java.sql.Date(date.getTime());
+  }
+
+  return sqlDate;
+}</pre></td></tr><tr class="question"><td align="left" valign="top"><a name="d0e2391"></a><a name="d0e2392"></a></td><td align="left" valign="top"><b><p>Is there a way to access the editing part of
+              <tt class="classname">JDatePicker</tt> or
+              <tt class="classname">JDateField</tt>?</p></b></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Both <tt class="classname">JDatePicker</tt> and
+              <tt class="classname">JDateField</tt> use a
+              <tt class="classname">JTextField</tt> object to edit the dates. But
+              this text field is not accessible through the API in a
+              meaningful way.</p><p>If you want to register a focus listener or do some text
+              operations, then you could use the following code to access the
+              text field:</p><pre class="programlisting">//for a JDateField
+JTextField textField = (JTextField)dateField.getComponent(0);
+
+//for a JDatePicker
+JComboBox comboBox = (JComboBox)datePicker.getComponent(0);
+JTextField textField = (JTextField)comboBox.getEditor().getEditorComponent();</pre></td></tr></tbody></table></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="knownissues.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="introduction.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="support.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.&nbsp;Known Issues&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;8.&nbsp;More Help</td></tr></table></div></body></html>
