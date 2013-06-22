@@ -13,7 +13,6 @@ import com.puntodeventa.global.Util.ParamHelper;
 import com.puntodeventa.global.Util.TagHelper;
 import com.puntodeventa.global.Util.Util;
 import com.puntodeventa.global.Util.ValidacionForms;
-import com.puntodeventa.global.printservice.printService;
 import com.puntodeventa.global.printservice.PrintServiceThread;
 import com.puntodeventa.global.report.viewer.printVentaProduct;
 import com.puntodeventa.mvc.Controller.VentaLogic;
@@ -134,9 +133,9 @@ public class jfrmVenta extends javax.swing.JFrame {
     }
 
     private void setTags() {
-        
+
         this.setTitle(TagHelper.getTag("generaltag.applicationTitle"));
-        
+
         this.jlblAttendedBy.setText(TagHelper.getTag("jfrmVenta.jlblAttendedBy"));
         this.jlblUserName.setText(user.getNombre());
 
@@ -598,9 +597,13 @@ public class jfrmVenta extends javax.swing.JFrame {
             restartControls();
 
             try {
-                //Printing ticket
-                printTicket(parentId);
-                //printService.impresion();
+                
+                // Question before print ticket
+                int option = valid.msjOption(TagHelper.getTag("jfrmVenta.printTicketMsg"), TagHelper.getTag("jfrmVenta.printTicketTitle"));
+                if (option == 0) {
+                    printTicket(parentId);
+                }
+
             } catch (Exception e) {
                 objLog.Log("Possible cause: Error while printing. " + e.getMessage());
             }
