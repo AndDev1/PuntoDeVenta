@@ -35,7 +35,7 @@ public class printCorte {
         CorteDS corteDS = new CorteDS();
         String pathImage = System.getProperty("user.dir") + "/src/images/";
 
-        BigInteger id_folio = corte.getId_folio();
+        int id_folio = corte.getId_folio();
         corte.getFecha();
         corte.getEfvoInicial();
         corte.getTotal_preciocompra();

@@ -1,7 +1,6 @@
 package com.puntodeventa.global.Entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,20 +22,20 @@ public class Venta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID_FOLIO")
-    private BigInteger idFolio;
+    private int idFolio;
     @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @ManyToOne
     private Usuario usuario;
     @Column(name = "CVE_CLIENTE")
-    private BigInteger cveCliente;
+    private int cveCliente;
     @Column(name = "CANTIDAD")
     private double cantidad;
     @Column(name = "TOTAL")
     private double total;
 
-    public Venta(BigInteger idFolio, Date fecha, Usuario usuario, BigInteger cveCliente, double cantidad, double total) {
+    public Venta(int idFolio, Date fecha, Usuario usuario, int cveCliente, double cantidad, double total) {
         this.idFolio = idFolio;
         this.fecha = fecha;
         this.usuario = usuario;
@@ -48,11 +47,11 @@ public class Venta implements Serializable {
     public Venta() {
     }
 
-    public BigInteger getIdFolio() {
+    public int getIdFolio() {
         return this.idFolio;
     }
 
-    public void setIdFolio(BigInteger idFolio) {
+    public void setIdFolio(int idFolio) {
         this.idFolio = idFolio;
     }
 
@@ -72,11 +71,11 @@ public class Venta implements Serializable {
         this.usuario = usuario;
     }
 
-    public BigInteger getCveCliente() {
+    public int getCveCliente() {
         return cveCliente;
     }
 
-    public void setCveCliente(BigInteger cveCliente) {
+    public void setCveCliente(int cveCliente) {
         this.cveCliente = cveCliente;
     }
 

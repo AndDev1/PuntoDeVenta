@@ -34,19 +34,21 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jbtnCut = new javax.swing.JButton();
-        jbtnCancelOrder = new javax.swing.JButton();
         jpnlTitle = new javax.swing.JPanel();
         jlblSelectOptionTitle = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jpnlHelp = new javax.swing.JPanel();
         jlblIcon = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtaHelpText = new javax.swing.JTextArea();
         jBtnOk = new javax.swing.JButton();
-        jbtnCashCount = new javax.swing.JButton();
-        jbtnCredit = new javax.swing.JButton();
-        jbtnPayWithCredit = new javax.swing.JButton();
         jBtnCancel = new javax.swing.JButton();
+        jpnlVentaMenuOptions = new javax.swing.JPanel();
+        jbtnCancelOrder = new javax.swing.JButton();
+        jbtnCut = new javax.swing.JButton();
+        jbtnCashCount = new javax.swing.JButton();
+        jbtnPrintTicket = new javax.swing.JButton();
+        jbtnPayWithCredit = new javax.swing.JButton();
+        jbtnCredit = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -62,16 +64,6 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
             }
         });
 
-        jbtnCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar.png"))); // NOI18N
-        jbtnCut.setText("Corte de caja");
-        jbtnCut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtnCut.setName("jbtnCut"); // NOI18N
-
-        jbtnCancelOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancelar.png"))); // NOI18N
-        jbtnCancelOrder.setText("Cancelar venta");
-        jbtnCancelOrder.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtnCancelOrder.setName("jbtnCancelOrder"); // NOI18N
-
         jpnlTitle.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jlblSelectOptionTitle.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
@@ -83,16 +75,19 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
         jpnlTitleLayout.setHorizontalGroup(
             jpnlTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlTitleLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jlblSelectOptionTitle)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnlTitleLayout.setVerticalGroup(
             jpnlTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlblSelectOptionTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlTitleLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jlblSelectOptionTitle))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setFocusable(false);
+        jpnlHelp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpnlHelp.setFocusable(false);
 
         jlblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/help.png"))); // NOI18N
 
@@ -107,29 +102,6 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
         jtaHelpText.setFocusable(false);
         jScrollPane2.setViewportView(jtaHelpText);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlblIcon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jlblIcon)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
         jBtnOk.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconDone.png"))); // NOI18N
         jBtnOk.setText("Aceptar");
@@ -141,23 +113,6 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
                 jBtnOkActionPerformed(evt);
             }
         });
-
-        jbtnCashCount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/arqueo.png"))); // NOI18N
-        jbtnCashCount.setText("Arqueo de caja");
-        jbtnCashCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtnCashCount.setName("jbtnCashCount"); // NOI18N
-
-        jbtnCredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/credito.png"))); // NOI18N
-        jbtnCredit.setText("Crear crédito");
-        jbtnCredit.setToolTipText("");
-        jbtnCredit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtnCredit.setName("jbtnCredit"); // NOI18N
-
-        jbtnPayWithCredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/paywith_credit.png"))); // NOI18N
-        jbtnPayWithCredit.setText("Pagar a crédito");
-        jbtnPayWithCredit.setToolTipText("");
-        jbtnPayWithCredit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jbtnPayWithCredit.setName("jbtnPayWithCredit"); // NOI18N
 
         jBtnCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBtnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconCritical.png"))); // NOI18N
@@ -171,6 +126,104 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout jpnlHelpLayout = new javax.swing.GroupLayout(jpnlHelp);
+        jpnlHelp.setLayout(jpnlHelpLayout);
+        jpnlHelpLayout.setHorizontalGroup(
+            jpnlHelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlHelpLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jlblIcon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlHelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlHelpLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBtnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
+        );
+        jpnlHelpLayout.setVerticalGroup(
+            jpnlHelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlHelpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlHelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlHelpLayout.createSequentialGroup()
+                        .addComponent(jlblIcon)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlHelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jpnlVentaMenuOptions.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jbtnCancelOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancelar.png"))); // NOI18N
+        jbtnCancelOrder.setText("Cancelar venta");
+        jbtnCancelOrder.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtnCancelOrder.setName("jbtnCancelOrder"); // NOI18N
+
+        jbtnCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar.png"))); // NOI18N
+        jbtnCut.setText("Corte de caja");
+        jbtnCut.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtnCut.setName("jbtnCut"); // NOI18N
+
+        jbtnCashCount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/arqueo.png"))); // NOI18N
+        jbtnCashCount.setText("Arqueo de caja");
+        jbtnCashCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtnCashCount.setName("jbtnCashCount"); // NOI18N
+
+        jbtnPrintTicket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/corteCaja.png"))); // NOI18N
+        jbtnPrintTicket.setText("Imprimir ticket");
+        jbtnPrintTicket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtnPrintTicket.setName("jbtnPrintTicket"); // NOI18N
+
+        jbtnPayWithCredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/paywith_credit.png"))); // NOI18N
+        jbtnPayWithCredit.setText("Pagar a crédito");
+        jbtnPayWithCredit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtnPayWithCredit.setName("jbtnPayWithCredit"); // NOI18N
+
+        jbtnCredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/credito.png"))); // NOI18N
+        jbtnCredit.setText("Crear crédito");
+        jbtnCredit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jbtnCredit.setName("jbtnCredit"); // NOI18N
+
+        javax.swing.GroupLayout jpnlVentaMenuOptionsLayout = new javax.swing.GroupLayout(jpnlVentaMenuOptions);
+        jpnlVentaMenuOptions.setLayout(jpnlVentaMenuOptionsLayout);
+        jpnlVentaMenuOptionsLayout.setHorizontalGroup(
+            jpnlVentaMenuOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlVentaMenuOptionsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlVentaMenuOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jbtnCut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnCashCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnPrintTicket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnPayWithCredit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnCredit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnCancelOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpnlVentaMenuOptionsLayout.setVerticalGroup(
+            jpnlVentaMenuOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlVentaMenuOptionsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbtnCancelOrder)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnCut)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnCashCount)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnPrintTicket)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnPayWithCredit)
+                .addGap(7, 7, 7)
+                .addComponent(jbtnCredit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,25 +231,11 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpnlTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpnlTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jbtnCashCount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbtnCancelOrder, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbtnCut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbtnCredit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jbtnPayWithCredit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                        .addComponent(jpnlVentaMenuOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jBtnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jpnlHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -205,23 +244,9 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jpnlTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtnOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbtnCancelOrder)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnCut)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnCashCount)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnCredit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnPayWithCredit)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jpnlVentaMenuOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpnlHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -282,7 +307,6 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancel;
     private javax.swing.JButton jBtnOk;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
@@ -291,9 +315,12 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
     private javax.swing.JButton jbtnCredit;
     private javax.swing.JButton jbtnCut;
     private javax.swing.JButton jbtnPayWithCredit;
+    private javax.swing.JButton jbtnPrintTicket;
     private javax.swing.JLabel jlblIcon;
     private javax.swing.JLabel jlblSelectOptionTitle;
+    private javax.swing.JPanel jpnlHelp;
     private javax.swing.JPanel jpnlTitle;
+    private javax.swing.JPanel jpnlVentaMenuOptions;
     private javax.swing.JTextArea jtaHelpText;
     // End of variables declaration//GEN-END:variables
 
@@ -316,6 +343,8 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
         this.jbtnCut.addActionListener(al);
         this.jbtnCashCount.addActionListener(al);
         this.jbtnCredit.addActionListener(al);
+        this.jbtnPayWithCredit.addActionListener(al);
+        this.jbtnPrintTicket.addActionListener(al);
 
 
         KeyStroke esc = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
@@ -328,23 +357,25 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
         jlblSelectOptionTitle.getActionMap().put("escPressed", escPressed);
         jlblSelectOptionTitle.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(esc, "escPressed");
 
-        boolean isMenuEnabled;
+        boolean isOptionEnabled;
 
-        isMenuEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.canelOrder_enabled").toString());
-        this.jbtnCancelOrder.setVisible(isMenuEnabled);
+        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.canelOrder_enabled").toString());
+        this.jbtnCancelOrder.setVisible(isOptionEnabled);
 
-        isMenuEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.cashCount_enabled").toString());
-        this.jbtnCashCount.setVisible(isMenuEnabled);
+        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.cashCount_enabled").toString());
+        this.jbtnCashCount.setVisible(isOptionEnabled);
 
-        isMenuEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.cashCut_enabled").toString());
-        this.jbtnCut.setVisible(isMenuEnabled);
+        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.cashCut_enabled").toString());
+        this.jbtnCut.setVisible(isOptionEnabled);
 
-        isMenuEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.credit_enabled").toString());
-        this.jbtnCredit.setVisible(isMenuEnabled);
+        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.credit_enabled").toString());
+        this.jbtnCredit.setVisible(isOptionEnabled);
 
-        isMenuEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.payWithCredit_enabled").toString());
-        this.jbtnPayWithCredit.setVisible(isMenuEnabled);
+        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.payWithCredit_enabled").toString());
+        this.jbtnPayWithCredit.setVisible(isOptionEnabled);
 
+        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.printTIcket_enabled").toString());
+        this.jbtnPrintTicket.setVisible(isOptionEnabled);
     }
 
     private void setTags() {
@@ -382,8 +413,11 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
             case "jbtnCredit":
                 this.jtaHelpText.setText(TagHelper.getTag("jfrmVentaMenu.creditHelp"));
                 break;
-            case "jbtnPayWitgCredit":
+            case "jbtnPayWithCredit":
                 this.jtaHelpText.setText(TagHelper.getTag("jfrmVentaMenu.payWithcreditHelp"));
+                break;
+            case "jbtnPrintTicket":
+                this.jtaHelpText.setText(TagHelper.getTag("jfrmVentaMenu.printTicketHelp"));
                 break;
         }
     }

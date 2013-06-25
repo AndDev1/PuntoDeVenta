@@ -2,7 +2,6 @@ package com.puntodeventa.global.Entity;
 
 import com.puntodeventa.global.Util.Util;
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +20,7 @@ public class Corte implements Serializable {
     public Corte() {
     }
 
-    public Corte(BigInteger id_folio, Date fecha, Usuario id_usuario, BigInteger ventafolio_from, BigInteger ventafolio_to, double total_preciocompra, double total_precioventa, int numero_de_ventas, double total_corte, double efvoInicial, double efvoVaja) {
+    public Corte(int id_folio, Date fecha, Usuario id_usuario, int ventafolio_from, int ventafolio_to, double total_preciocompra, double total_precioventa, int numero_de_ventas, double total_corte, double efvoInicial, double efvoVaja) {
         this.id_folio = id_folio;
         this.fecha = fecha;
         this.id_usuario = id_usuario;
@@ -37,16 +36,16 @@ public class Corte implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID_FOLIO")
-    private BigInteger id_folio;
+    private int id_folio;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA")
     private Date fecha = Util.getDate();
     @ManyToOne
     private Usuario id_usuario = Util.getCurrentUser();
     @Column(name = "FOLIOVENTA_FROM")
-    private BigInteger ventafolio_from;
+    private int ventafolio_from;
     @Column(name = "FOLIOVENTA_TO")
-    private BigInteger ventafolio_to;
+    private int ventafolio_to;
     @Column(name = "TOTAL_PRECIOCOMPRA")
     private double total_preciocompra = 0;
     @Column(name = "TOTAL_PRECIOVENTA")
@@ -60,11 +59,11 @@ public class Corte implements Serializable {
     @Column(name = "EFVO_CAJA")
     private double efvoCaja = 0;
 
-    public BigInteger getId_folio() {
+    public int getId_folio() {
         return id_folio;
     }
 
-    public void setId_folio(BigInteger id_folio) {
+    public void setId_folio(int id_folio) {
         this.id_folio = id_folio;
     }
 
@@ -84,19 +83,19 @@ public class Corte implements Serializable {
         this.id_usuario = id_usuario;
     }
 
-    public BigInteger getVentafolio_from() {
+    public int getVentafolio_from() {
         return ventafolio_from;
     }
 
-    public void setVentafolio_from(BigInteger ventafolio_from) {
+    public void setVentafolio_from(int ventafolio_from) {
         this.ventafolio_from = ventafolio_from;
     }
 
-    public BigInteger getVentafolio_to() {
+    public int getVentafolio_to() {
         return ventafolio_to;
     }
 
-    public void setVentafolio_to(BigInteger ventafolio_to) {
+    public void setVentafolio_to(int ventafolio_to) {
         this.ventafolio_to = ventafolio_to;
     }
 
