@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -258,4 +259,14 @@ public class VentaDAO {
         }
         return nlist;
     }
+    
+    public int getLastTicketNumber() {
+        this.iniciaOperacion();
+        return (int) session.createCriteria(Venta.class)
+                .setProjection(Projections.max("idFolio")).uniqueResult();        
+    }
+
+//    public int getTicketByNumber() {
+//        return ventaDAO.getTotalUserForCashCount();
+//    }
 }

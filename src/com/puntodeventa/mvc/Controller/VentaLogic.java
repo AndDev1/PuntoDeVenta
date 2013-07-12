@@ -26,8 +26,16 @@ public class VentaLogic {
     public double getTotalUserTurn() {
         return ventaDAO.getTotalUserTurn();
     }
-    
+
     public double getTotalUserForCashCount() {
         return ventaDAO.getTotalUserForCashCount();
     }
+
+    public int getLastTicketNumber() {
+        return ventaDAO.getLastTicketNumber();
+    }
+//
+//    public int getTicketByNumber() {
+//        return ventaDAO.getTotalUserForCashCount();
+//    }
 }

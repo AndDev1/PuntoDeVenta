@@ -291,6 +291,11 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
                 // Option in which we print two tickets. A simple credit.
                 dispose();
                 break;
+            case "jbtnPrintTicket":
+                dispose();
+                jfrmVentaMenuPrintTicket pt = new jfrmVentaMenuPrintTicket(parent, true);
+                pt.setVisible(true);
+                break;
 
         }
     }//GEN-LAST:event_jBtnOkActionPerformed
@@ -374,7 +379,7 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
         isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.payWithCredit_enabled").toString());
         this.jbtnPayWithCredit.setVisible(isOptionEnabled);
 
-        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.printTIcket_enabled").toString());
+        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.printTicket_enabled").toString());
         this.jbtnPrintTicket.setVisible(isOptionEnabled);
     }
 
