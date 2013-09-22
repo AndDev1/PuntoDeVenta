@@ -34,14 +34,20 @@ public class Venta implements Serializable {
     private double cantidad;
     @Column(name = "TOTAL")
     private double total;
+    @Column(name = "EFECTIVO")
+    private double efectivo;
+    @Column(name = "CAMBIO")
+    private double cambio;
 
-    public Venta(int idFolio, Date fecha, Usuario usuario, int cveCliente, double cantidad, double total) {
+    public Venta(int idFolio, Date fecha, Usuario usuario, int cveCliente, double cantidad, double total, double efectivo, double cambio) {
         this.idFolio = idFolio;
         this.fecha = fecha;
         this.usuario = usuario;
         this.cveCliente = cveCliente;
         this.cantidad = cantidad;
         this.total = total;
+        this.efectivo = efectivo;
+        this.cambio = cambio;
     }
 
     public Venta() {
@@ -94,4 +100,29 @@ public class Venta implements Serializable {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public double getEfectivo() {
+        return efectivo;
+    }
+
+    public void setEfectivo(double efectivo) {
+        this.efectivo = efectivo;
+    }
+
+    public double getCambio() {
+        return cambio;
+    }
+
+    public void setCambio(double cambio) {
+        this.cambio = cambio;
+    }
+    
 }

@@ -4,6 +4,7 @@ import com.puntodeventa.global.Entity.Corte;
 import com.puntodeventa.global.Entity.Sesion;
 import com.puntodeventa.global.Entity.Usuario;
 import com.puntodeventa.global.Entity.Venta;
+import com.puntodeventa.global.Enum.PrintType;
 import com.puntodeventa.global.Util.LogHelper;
 import com.puntodeventa.global.Util.Util;
 import com.puntodeventa.global.printservice.printService;
@@ -183,7 +184,7 @@ public class CorteDAO {
                 objLog.Log("Error while exportTopdf in disco. " + e.getMessage());
             }
             try {
-                printService.printICEPdf("Corte", "" + id_folio);
+                printService.printICEPdf(PrintType.CORTE, "" + id_folio);
             } catch (Exception ex) {
                 objLog.Log("Error while printing Corte. " + ex.getMessage());
             }

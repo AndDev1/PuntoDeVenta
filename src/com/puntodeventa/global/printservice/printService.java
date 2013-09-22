@@ -4,6 +4,8 @@
  */
 package com.puntodeventa.global.printservice;
 
+import com.puntodeventa.global.Enum.PrintType;
+import com.puntodeventa.global.Util.ParamHelper;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -67,9 +69,17 @@ public class printService {
      * @Params type Indica el tipo de proceso que realiza: ventas, Corte para saber en qye directorio indicar
      * @Params if_folio indicara el nombre del Reporte a generar en disco
      */
-    public static void printICEPdf(String type, String id_folio) throws PDFSecurityException  {
+    public static void printICEPdf(PrintType type, String id_folio) throws PDFSecurityException  {
         try {
-            String file = "D:\\vPuntoVenta/"+type+"/"+id_folio+".pdf";
+            
+            String file = "";
+            
+            if (type == PrintType.VENTA) {
+                file = ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio);
+            } else if (type == PrintType.CORTE) {
+                file = ParamHelper.getParam("cashout.path.location").toString().replace("_folio_", id_folio);
+            }
+            
             Document pdf = new Document() {};
             pdf.setFile(file);
             SwingController sc = new SwingController();

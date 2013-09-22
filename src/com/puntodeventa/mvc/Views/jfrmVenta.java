@@ -4,6 +4,7 @@ import com.puntodeventa.global.Entity.Product;
 import com.puntodeventa.global.Entity.Usuario;
 import com.puntodeventa.global.Entity.Venta;
 import com.puntodeventa.global.Entity.VentaDetalle;
+import com.puntodeventa.global.Enum.PrintType;
 import com.puntodeventa.global.Util.Constants.Command;
 import com.puntodeventa.global.Util.Constants.ShortCuts;
 import com.puntodeventa.global.Util.Constants.TableColumns;
@@ -14,7 +15,7 @@ import com.puntodeventa.global.Util.TagHelper;
 import com.puntodeventa.global.Util.Util;
 import com.puntodeventa.global.Util.ValidacionForms;
 import com.puntodeventa.global.printservice.PrintServiceThread;
-import com.puntodeventa.global.report.viewer.printVentaProduct;
+import com.puntodeventa.global.report.viewer.ReportGenerator;
 import com.puntodeventa.mvc.Controller.VentaLogic;
 import com.puntodeventa.mvc.Controller.VentadDetalleLogic;
 import com.puntodeventa.services.DAO.ProductDAO;
@@ -39,7 +40,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class jfrmVenta extends javax.swing.JFrame {
 
-    static printVentaProduct pvp = new printVentaProduct();
     private Usuario user = Util.getCurrentUser();
     private LogHelper objLog = new LogHelper("jfrmVenta");
     private ProductDAO prodDao = new ProductDAO();
@@ -555,53 +555,57 @@ public class jfrmVenta extends javax.swing.JFrame {
 
     }
 
-    private void finishOrder() {
-        double total = 0;
-        int cantidad = 0;
+    private void finishOrder() {        
         Venta venta;
+        int cantidad = 0;
+        double total = 0;
+        double efectivo = 0;
+        double cambio = 0;
 
         try {
-            total = Util.formatMoneyToDouble(this.jlblTotal.getText().replace("$", ""));
+
             cantidad = this.jtblVenta.getRowCount();
+            total = Util.formatMoneyToDouble(this.jlblTotal.getText().replace("$", ""));            
+            efectivo = Double.valueOf(this.txt.getText());
+            cambio = efectivo - total;
+            
+            this.jlblEfectivo.setText(Util.formatDoubleValueToMoney(efectivo));            
+            this.jlblCambio.setText(Util.formatDoubleValueToMoney(cambio));
+
         } catch (NumberFormatException nfe) {
             objLog.Log(nfe.getMessage());
-        } catch (Exception nfe) {
-            objLog.Log(nfe.getMessage());
+        } catch (Exception ex) {
+            objLog.Log(ex.getMessage());
         }
 
         venta = new Venta();
         venta.setFecha(Util.getDate());
         venta.setIdUsuario(Util.getCurrentUser());
-        venta.setTotal(total);
+        venta.setTotal(total);        
+        venta.setEfectivo(efectivo);
+        venta.setCambio(cambio);
         venta.setCantidad(cantidad);
 
         VentaLogic vtaLogic = new VentaLogic();
 
-        int parentId = 0;
+        int ticketNumber = 0;
         boolean allCorrect = false;
 
         try {
-            parentId = vtaLogic.saveVenta(venta);
+            ticketNumber = vtaLogic.saveVenta(venta);
             allCorrect = saveOrderDetail(venta);
         } catch (Exception e) {
             objLog.Log(e.getMessage());
         }
 
         if (allCorrect) {
-            //Set cash captured labels
-            double cashCaptured = Double.valueOf(this.txt.getText());
-            this.jlblEfectivo.setText(Util.formatDoubleValueToMoney(cashCaptured));
-            double cambio = cashCaptured - total;
-            this.jlblCambio.setText(Util.formatDoubleValueToMoney(cambio));
-
-            restartControls();
-
             try {
-                
+
+                restartControls();
                 // Question before print ticket
                 int option = valid.msjOption(TagHelper.getTag("jfrmVenta.printTicketMsg"), TagHelper.getTag("jfrmVenta.printTicketTitle"));
                 if (option == 0) {
-                    printTicket(parentId);
+                    printTicket(ticketNumber);
                 }
 
             } catch (Exception e) {
@@ -609,7 +613,7 @@ public class jfrmVenta extends javax.swing.JFrame {
             }
 
         } else {
-            objLog.Log("Order number" + parentId + "not saved correctly");
+            objLog.Log("Order number " + ticketNumber + " not saved correctly");
         }
     }
 
@@ -664,14 +668,16 @@ public class jfrmVenta extends javax.swing.JFrame {
         }
     }
 
-    private boolean printTicket(int parentId) {
+    private boolean printTicket(int ticketNumber) {
         try {
-            pvp.getPrintVentaId("" + parentId, this.jlblEfectivo.getText(), this.jlblCambio.getText());
+            ReportGenerator repGenerator = new ReportGenerator();
+            repGenerator.generateTicket(String.valueOf(ticketNumber), this.jlblEfectivo.getText(), this.jlblCambio.getText());
 
-            PrintServiceThread serviceThread = new PrintServiceThread("ventas", "" + parentId);
+            PrintServiceThread serviceThread = new PrintServiceThread(PrintType.VENTA, String.valueOf(ticketNumber));
             Thread thread = new Thread(serviceThread);
             thread.setPriority(Thread.NORM_PRIORITY);
             thread.start();
+            
             return true;
         } catch (Exception ex) {
             objLog.Log(ex.getMessage());

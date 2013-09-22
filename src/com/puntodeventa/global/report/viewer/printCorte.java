@@ -8,6 +8,7 @@ package com.puntodeventa.global.report.viewer;
 import com.puntodeventa.global.Entity.Corte;
 import com.puntodeventa.global.Entity.Usuario;
 import com.puntodeventa.global.Util.LogHelper;
+import com.puntodeventa.global.Util.ParamHelper;
 import com.puntodeventa.global.printservice.printService;
 import com.puntodeventa.global.report.DataSource.CorteDS;
 import java.math.BigInteger;
@@ -35,7 +36,7 @@ public class printCorte {
         CorteDS corteDS = new CorteDS();
         String pathImage = System.getProperty("user.dir") + "/src/images/";
 
-        int id_folio = corte.getId_folio();
+        String id_folio = String.valueOf(corte.getId_folio());
         corte.getFecha();
         corte.getEfvoInicial();
         corte.getTotal_preciocompra();
@@ -60,10 +61,9 @@ public class printCorte {
             JasperPrint jasperPrint = (JasperPrint) JasperFillManager.fillReport(Reporte, param, corteDS);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("D:\\vPuntoVenta/Corte/" + id_folio + ".pdf"));
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(ParamHelper.getParam("cashout.path.location").toString().replace("_folio_", id_folio)));
             exporter.exportReport();
-            corteDS.cleanBean();                                    
-            
+            corteDS.cleanBean();
             System.out.println("Cut finished...");
             return true;
         } catch (JRException ex) {

@@ -4,7 +4,9 @@
  */
 package com.puntodeventa.global.printservice;
 
+import com.puntodeventa.global.Enum.PrintType;
 import com.puntodeventa.global.Util.LogHelper;
+import com.puntodeventa.global.Util.ParamHelper;
 import java.io.IOException;
 import javax.print.*;
 import javax.print.attribute.standard.MediaSizeName;
@@ -24,10 +26,10 @@ import org.icepdf.ri.common.views.DocumentViewControllerImpl;
 public class PrintServiceThread implements Runnable {
 
     private LogHelper objLog = new LogHelper("printServiceThread");
-    private String type;
+    private PrintType type;
     private String id_folio;
 
-    public PrintServiceThread(String type, String id_folio) {
+    public PrintServiceThread(PrintType type, String id_folio) {
         this.type = type;
         this.id_folio = id_folio;
     }
@@ -38,7 +40,15 @@ public class PrintServiceThread implements Runnable {
      */
     private void printICEPdf(){
         try {
-            String file = "D:\\vPuntoVenta/" + type + "/" + id_folio + ".pdf";
+
+            String file = "";
+            
+            if (type == PrintType.VENTA) {
+                file = ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio);
+            } else if (type == PrintType.CORTE) {
+                file = ParamHelper.getParam("cashout.path.location").toString().replace("_folio_", id_folio);
+            }
+            
             Document pdf = new Document() {};
             pdf.setFile(file);
             SwingController sc = new SwingController();

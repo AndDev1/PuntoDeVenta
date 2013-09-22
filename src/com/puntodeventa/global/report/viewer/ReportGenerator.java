@@ -4,14 +4,12 @@
  */
 package com.puntodeventa.global.report.viewer;
 
-import com.puntodeventa.global.printservice.printService;
+import com.puntodeventa.global.Util.ParamHelper;
 import com.puntodeventa.global.report.DataSource.VentaProductDS;
 import com.puntodeventa.services.DAO.VentaDAO;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -21,7 +19,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Nato
  */
-public class printVentaProduct {
+public class ReportGenerator {
     static JasperReport Reporte;
     static JasperPrint impresion;
     static JasperViewer jviewer;    
@@ -32,7 +30,7 @@ public class printVentaProduct {
     
 
     
-    public boolean getPrintVentaId(String id_folio, String Pefectivo, String Pcambio){
+    public boolean generateTicket(String id_folio, String Pefectivo, String Pcambio){
         try {
             byte[] pdfBuffer;
             List<VentaProduct> listVentaProduct;
@@ -66,7 +64,7 @@ public class printVentaProduct {
             JasperPrint jasperPrint = (JasperPrint)JasperFillManager.fillReport(Reporte, param, ventaProductDS);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("D:\\vPuntoVenta/ventas/"+id_folio+".pdf"));
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio)));
             exporter.exportReport();
             ventaProductDS.cleanBean();
             return true;

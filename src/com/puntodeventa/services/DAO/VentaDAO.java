@@ -27,6 +27,7 @@ public class VentaDAO {
     LogHelper objLog = new LogHelper("VentaDAO");
     private Session session;
     private Transaction tx;
+    private static String query = "";
 
     //Metodo: Inicializa la operacion para procesos en la base de datos
     private void iniciaOperacion() {
@@ -94,9 +95,9 @@ public class VentaDAO {
     }
 
     /**
-     * Metodo que devuelve un objeto Venta
+     * Método que devuelve un objeto Venta
      */
-    public Venta selectVenta(BigInteger idVenta) {
+    public Venta selectVenta(int idVenta) {
         Venta venta = null;
         try {
             this.iniciaOperacion();
@@ -109,7 +110,7 @@ public class VentaDAO {
         }
         return venta;
     }
-    private static String query = "";
+    
 
     public List<Venta> listVenta() {
         List<Venta> listVenta = null;

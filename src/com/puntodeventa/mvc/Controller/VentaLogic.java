@@ -34,8 +34,8 @@ public class VentaLogic {
     public int getLastTicketNumber() {
         return ventaDAO.getLastTicketNumber();
     }
-//
-//    public int getTicketByNumber() {
-//        return ventaDAO.getTotalUserForCashCount();
-//    }
+
+    public Venta getVenta(int ticketNumber) {
+        return ventaDAO.selectVenta(ticketNumber);
+    }
 }

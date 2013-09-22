@@ -90,7 +90,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * Metodo que devuelve un product
+     * Metodo que devuelve un objeto de tipo Usuario
      */
     public Usuario selectUsuario(int idUsuario) {
         Usuario usuario = null;
