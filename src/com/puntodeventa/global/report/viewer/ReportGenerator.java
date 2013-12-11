@@ -4,9 +4,12 @@
  */
 package com.puntodeventa.global.report.viewer;
 
-import com.puntodeventa.global.Util.ParamHelper;
 import com.puntodeventa.global.report.DataSource.VentaProductDS;
 import com.puntodeventa.services.DAO.VentaDAO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +30,14 @@ public class ReportGenerator {
     static VentaProductDS ventaProductDS = new VentaProductDS();
     static VentaProduct listV;
     static String pathImage = System.getProperty("user.dir") + "/src/images/";
+    byte[] pdfBuffer = null;
     
 
     
     public boolean generateTicket(String id_folio, String Pefectivo, String Pcambio){
-        try {
-            byte[] pdfBuffer;
+        try {            
             List<VentaProduct> listVentaProduct;
             listVentaProduct = ventaDAO.getVentaId(id_folio);
-            
             Map param = new HashMap();
             param.put("logo", pathImage + "splash1.jpg");
             param.put("efectivo", Pefectivo);
@@ -58,19 +60,56 @@ public class ReportGenerator {
                 ventaProductDS.addVentaList(listV);
             }
             
-            String archivo = System.getProperty("user.dir") + "/src/com/puntodeventa/global/report/File/ventaId.jasper";            
-            
+            String archivo = System.getProperty("user.dir") + "/src/com/puntodeventa/global/report/File/ventaId.jasper";
             Reporte = (JasperReport) JRLoader.loadObject(archivo);            
             JasperPrint jasperPrint = (JasperPrint)JasperFillManager.fillReport(Reporte, param, ventaProductDS);
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio)));
+            //exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio)));            
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("D:\\vPuntoVenta\\ventas\\"+id_folio+".pdf"));
             exporter.exportReport();
             ventaProductDS.cleanBean();
             return true;
         } catch (JRException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println("- " + ex.getLocalizedMessage());
             return false;
+        }
+    }
+    
+    public byte[] generateTicketBuffer(String id_folio, String Pefectivo, String Pcambio){
+        try {
+            List<VentaProduct> listVentaProduct;
+            listVentaProduct = ventaDAO.getVentaId(id_folio);
+            Map param = new HashMap();
+            param.put("logo", pathImage + "splash1.jpg");
+            param.put("efectivo", Pefectivo);
+            param.put("cambio", Pcambio);
+            
+            for(VentaProduct v: listVentaProduct){                
+                listV = new VentaProduct(
+                        v.getId_folio(),
+                        v.getFecha(),
+                        v.getId_usuario(),
+                        v.getUsuario(),
+                        v.getId_product(),
+                        v.getProducto(),
+                        v.getDescripcion(),
+                        v.getP_venta(),
+                        v.getCantidad(),
+                        v.getSubtotal(),
+                        v.getTotCantidad(),
+                        v.getTotal());
+                ventaProductDS.addVentaList(listV);
+            }
+            
+            String archivo = System.getProperty("user.dir") + "/src/com/puntodeventa/global/report/File/ventaId.jasper";
+            InputStream is = new FileInputStream(new File(archivo));
+            pdfBuffer = JasperRunManager.runReportToPdf(is, param, ventaProductDS);
+            ventaProductDS.cleanBean();
+            return pdfBuffer;
+        } catch (JRException | FileNotFoundException ex) {
+            System.out.println("Error al generar el archivo pdf");
+            return pdfBuffer;
         }
     }
 }
