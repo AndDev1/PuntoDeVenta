@@ -200,7 +200,7 @@ public class VentaDAO {
         List<VentaProduct> listVenta = null;
         String qry = " select  "
                 + "A.ID_FOLIO,  "
-                + "to_char(a.FECHA,'dd-Mon-yyyy') FECHA,  "
+                + "to_char(a.FECHA,'dd-MM-yyyy hh:mi:ss') FECHA,  "
                 + "A.USUARIO_ID_USUARIO,  "
                 + "d.Nombre usuario,  "
                 + "B.ID_PRODUCT,  "
@@ -217,7 +217,7 @@ public class VentaDAO {
                 + "and A.USUARIO_ID_USUARIO = D.ID_USUARIO  "
                 + "AND A.ID_FOLIO = '" + id_folio + "' "
                 + "GROUP BY A.ID_FOLIO,  "
-                + "to_char(a.FECHA,'dd-Mon-yyyy'),  "
+                + "to_char(a.FECHA,'dd-MM-yyyy hh:mi:ss'),  "
                 + "A.USUARIO_ID_USUARIO,  "
                 + "d.Nombre,  "
                 + "B.ID_PRODUCT,  "
