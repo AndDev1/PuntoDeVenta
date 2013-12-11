@@ -15,6 +15,7 @@ import com.puntodeventa.global.Util.TagHelper;
 import com.puntodeventa.global.Util.Util;
 import com.puntodeventa.global.Util.ValidacionForms;
 import com.puntodeventa.global.printservice.PrintServiceThread;
+import com.puntodeventa.global.printservice.printService;
 import com.puntodeventa.global.report.viewer.ReportGenerator;
 import com.puntodeventa.mvc.Controller.VentaLogic;
 import com.puntodeventa.mvc.Controller.VentadDetalleLogic;
@@ -463,6 +464,7 @@ public class jfrmVenta extends javax.swing.JFrame {
             if (op == 0) {
                 ((DefaultTableModel) jtblVenta.getModel()).removeRow(jtblVenta.getSelectedRow());
                 this.jlblTotal.setText(Util.formatDoubleValueToMoney(this.getTotalFromTable()));
+                txt.requestFocus();
             }
         }
     }//GEN-LAST:event_jtblVentaKeyPressed
@@ -581,7 +583,9 @@ public class jfrmVenta extends javax.swing.JFrame {
         venta = new Venta();
         venta.setFecha(Util.getDate());
         venta.setIdUsuario(Util.getCurrentUser());
-        venta.setTotal(total);        
+        venta.setTotal(total);   
+        //TODO: Se agrega el cliente fijo para guardar la venta
+        venta.setCveCliente(1);
         venta.setEfectivo(efectivo);
         venta.setCambio(cambio);
         venta.setCantidad(cantidad);
@@ -670,14 +674,13 @@ public class jfrmVenta extends javax.swing.JFrame {
 
     private boolean printTicket(int ticketNumber) {
         try {
+            byte[] pdfBuffer;
             ReportGenerator repGenerator = new ReportGenerator();
-            repGenerator.generateTicket(String.valueOf(ticketNumber), this.jlblEfectivo.getText(), this.jlblCambio.getText());
-
-            PrintServiceThread serviceThread = new PrintServiceThread(PrintType.VENTA, String.valueOf(ticketNumber));
-            Thread thread = new Thread(serviceThread);
-            thread.setPriority(Thread.NORM_PRIORITY);
-            thread.start();
+            pdfBuffer = repGenerator.generateTicketBuffer(String.valueOf(ticketNumber), this.jlblEfectivo.getText(), this.jlblCambio.getText());
             
+            if(pdfBuffer != null){
+                printService.printArrayPdf(pdfBuffer);
+            }
             return true;
         } catch (Exception ex) {
             objLog.Log(ex.getMessage());
