@@ -2,8 +2,6 @@ package com.puntodeventa.mvc.Views;
 
 import com.puntodeventa.global.Entity.Sesion;
 import com.puntodeventa.global.Util.LogHelper;
-import com.puntodeventa.global.Util.TextLimiter;
-import com.puntodeventa.global.Util.ParamHelper;
 import com.puntodeventa.global.Util.TagHelper;
 import com.puntodeventa.mvc.Controller.UsuarioLogic;
 import com.puntodeventa.mvc.Controller.SesionLogic;
@@ -40,8 +38,8 @@ public class jfrmLogin extends javax.swing.JFrame {
 
     private void configureControls() {
         this.setLocationRelativeTo(null);
-        this.jtxtUsuario.setMaxLength(Integer.parseInt(ParamHelper.getParam("jfrmLogin.jtxtUsuario").toString()));
-        this.jtxtContrasena.setDocument(new TextLimiter(Integer.parseInt(ParamHelper.getParam("jfrmLogin.jtxtContrasena").toString())));
+        //this.jtxtUsuario.setMaximumSize(Integer.parseInt(ParamHelper.getParam("jfrmLogin.jtxtUsuario").toString()));
+        //this.jtxtContrasena.setDocument(new TextLimiter(Integer.parseInt(ParamHelper.getParam("jfrmLogin.jtxtContrasena").toString())));
     }
 
     private void showClosingWarning() {
@@ -72,17 +70,17 @@ public class jfrmLogin extends javax.swing.JFrame {
 
         jlblUsuario = new javax.swing.JLabel();
         jlblContrasena = new javax.swing.JLabel();
-        jtxtUsuario = new com.puntodeventa.global.Util.Extended.JTextFieldExtended();
+        jtxtUsuario = new javax.swing.JTextField();
         jBtnEntrar = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jtxtContrasena = new com.puntodeventa.global.Util.Extended.JPasswordFieldExtended();
+        jtxtContrasena = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setIconImage(getIconImage());
-        setResizable(false);
         setUndecorated(true);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -275,7 +273,7 @@ public class jfrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jlblContrasena;
     private javax.swing.JLabel jlblUsuario;
-    private com.puntodeventa.global.Util.Extended.JPasswordFieldExtended jtxtContrasena;
-    private com.puntodeventa.global.Util.Extended.JTextFieldExtended jtxtUsuario;
+    private javax.swing.JPasswordField jtxtContrasena;
+    private javax.swing.JTextField jtxtUsuario;
     // End of variables declaration//GEN-END:variables
 }
