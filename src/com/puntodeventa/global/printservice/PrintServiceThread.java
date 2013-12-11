@@ -6,7 +6,6 @@ package com.puntodeventa.global.printservice;
 
 import com.puntodeventa.global.Enum.PrintType;
 import com.puntodeventa.global.Util.LogHelper;
-import com.puntodeventa.global.Util.ParamHelper;
 import java.io.IOException;
 import javax.print.*;
 import javax.print.attribute.standard.MediaSizeName;
@@ -44,9 +43,11 @@ public class PrintServiceThread implements Runnable {
             String file = "";
             
             if (type == PrintType.VENTA) {
-                file = ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio);
+                //file = ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio);
+                file = "D:\\vPuntoVenta/ventas/"+id_folio+".pdf";
             } else if (type == PrintType.CORTE) {
-                file = ParamHelper.getParam("cashout.path.location").toString().replace("_folio_", id_folio);
+                //file = ParamHelper.getParam("cashout.path.location").toString().replace("_folio_", id_folio);                
+                file = "D:\\vPuntoVenta/Corte/"+id_folio+".pdf";
             }
             
             Document pdf = new Document() {};

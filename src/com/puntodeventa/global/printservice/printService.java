@@ -64,46 +64,80 @@ public class printService {
             System.out.println("Error de impresion: " + e.getMessage());
         }
     }
-    
+
     /*
      * @Params type Indica el tipo de proceso que realiza: ventas, Corte para saber en qye directorio indicar
      * @Params if_folio indicara el nombre del Reporte a generar en disco
      */
-    public static void printICEPdf(PrintType type, String id_folio) throws PDFSecurityException  {
+    public static void printICEPdf(PrintType type, String id_folio) throws PDFSecurityException {
         try {
-            
+
             String file = "";
-            
+
             if (type == PrintType.VENTA) {
-                file = ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio);
+                file = "D:\\vPuntoVenta/ventas/" + id_folio + ".pdf";
+                //file = ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", id_folio);
             } else if (type == PrintType.CORTE) {
-                file = ParamHelper.getParam("cashout.path.location").toString().replace("_folio_", id_folio);
+                //file = ParamHelper.getParam("cashout.path.location").toString().replace("_folio_", id_folio);
+                file = "D:\\vPuntoVenta/Corte/" + id_folio + ".pdf";
             }
-            
-            Document pdf = new Document() {};
+
+            Document pdf = new Document() {
+            };
             pdf.setFile(file);
             SwingController sc = new SwingController();
             DocumentViewController vc = new DocumentViewControllerImpl(sc);
             vc.setDocument(pdf);
-    // create a new print helper with a specified paper size and print
-    // quality
+            // create a new print helper with a specified paper size and print
+            // quality
             PrintHelper printHelper = new PrintHelper(vc, pdf.getPageTree(),
                     MediaSizeName.NA_LEGAL, PrintQuality.DRAFT);
-    // try and print pages 1 - 10, 1 copy, scale to fit paper.
+            // try and print pages 1 - 10, 1 copy, scale to fit paper.
             PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
-            
+
             //printHelper.setupPrintService(defaultService, 0, 9, 1, true);
-            printHelper.setupPrintService(defaultService, 0, 0,1,true);
-    // print the document
+            printHelper.setupPrintService(defaultService, 0, 0, 1, true);
+            // print the document
             printHelper.print();
         } catch (PrintException ex) {
             System.out.println("1: " + ex.getMessage());
         } catch (org.icepdf.core.exceptions.PDFException ex) {
             System.out.println("2: " + ex.getMessage());
         } catch (PDFSecurityException ex) {
-            System.out.println("3: "+ex.getMessage());
+            System.out.println("3: " + ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("4: "+ex.getMessage());
+            System.out.println("4: " + ex.getMessage());
+        }
+    }
+
+    public static void printArrayPdf(byte[] pdfBuffer) throws PDFSecurityException {
+        try {
+
+            Document pdf = new Document() {
+            };
+            pdf.setByteArray(pdfBuffer, 0, pdfBuffer.length, null);
+            SwingController sc = new SwingController();
+            DocumentViewController vc = new DocumentViewControllerImpl(sc);
+            vc.setDocument(pdf);
+            // create a new print helper with a specified paper size and print
+            // quality
+            PrintHelper printHelper = new PrintHelper(vc, pdf.getPageTree(),
+                    MediaSizeName.NA_LEGAL, PrintQuality.DRAFT);
+            // try and print pages 1 - 10, 1 copy, scale to fit paper.
+            PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+
+            //printHelper.setupPrintService(defaultService, 0, 9, 1, true);
+            printHelper.setupPrintService(defaultService, 0, 0, 1, true);
+            // print the document
+            printHelper.print();
+        } catch (PrintException ex) {
+            System.out.println("1: " + ex.getMessage());
+        } catch (org.icepdf.core.exceptions.PDFException ex) {
+            System.out.println("2: " + ex.getMessage());
+        } catch (PDFSecurityException ex) {
+            System.out.println("3: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("4: " + ex.getMessage());
         }
     }
 }
