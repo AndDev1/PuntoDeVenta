@@ -15,6 +15,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.icepdf.core.exceptions.PDFSecurityException;
 
 /**
  *
@@ -27,6 +28,7 @@ public class CorteDAO {
     private Session session;
     private Transaction tx;
     private List<Corte> listCorte = new ArrayList<>();
+    byte[] pdfBuffer = null;
 
     //Metodo: Inicializa la operacion para procesos en la base de datos
     private void iniciaOperacion() {
@@ -110,7 +112,7 @@ public class CorteDAO {
         return corte;
     }
 
-    public boolean processCut(double efvoInicial, double efvoCaja) {
+    public boolean processCut(double efvoInicial, double efvoCaja) throws PDFSecurityException {
 
         boolean returnValue = false;
         Corte corte = new Corte();
@@ -179,12 +181,16 @@ public class CorteDAO {
             }
 
             try {
-                pCorte.printCorte(corte, user);
+                pdfBuffer = pCorte.printCortepdfBuffer(corte, user);
             } catch (Exception e) {
                 objLog.Log("Error while exportTopdf in disco. " + e.getMessage());
             }
             try {
-                printService.printICEPdf(PrintType.CORTE, "" + id_folio);
+                if (pdfBuffer != null){
+                    printService.printArrayPdf(pdfBuffer);
+                }else{
+                    objLog.Log("pdfBuffer is null");
+                }
             } catch (Exception ex) {
                 objLog.Log("Error while printing Corte. " + ex.getMessage());
             }
