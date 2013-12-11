@@ -28,18 +28,18 @@
 	<group name="gFolio">
 		<groupExpression><![CDATA[$F{id_folio}]]></groupExpression>
 		<groupHeader>
-			<band height="12">
+			<band height="11">
 				<textField>
-					<reportElement x="2" y="0" width="130" height="11" forecolor="#006666"/>
+					<reportElement x="2" y="0" width="109" height="11" forecolor="#006666"/>
 					<textElement>
-						<font size="7" isBold="false" isItalic="true"/>
+						<font size="6" isBold="false" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Atendio: "  + $F{usuario}]]></textFieldExpression>
 				</textField>
-				<textField pattern="MMMMM dd, yyyy">
-					<reportElement x="132" y="0" width="46" height="11"/>
+				<textField pattern="">
+					<reportElement x="121" y="0" width="60" height="11"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="7"/>
+						<font size="6"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 				</textField>
