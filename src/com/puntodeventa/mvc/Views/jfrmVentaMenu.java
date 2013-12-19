@@ -3,6 +3,7 @@ package com.puntodeventa.mvc.Views;
 import com.puntodeventa.global.Util.ParamHelper;
 import com.puntodeventa.global.Util.TagHelper;
 import com.puntodeventa.global.Util.ValidacionForms;
+import com.puntodeventa.global.Util.Util;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -367,7 +368,7 @@ public class jfrmVentaMenu extends javax.swing.JDialog {
         isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.canelOrder_enabled").toString());
         this.jbtnCancelOrder.setVisible(isOptionEnabled);
 
-        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.cashCount_enabled").toString());
+        isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.cashCount_enabled").toString()) && Util.getCurrentUser().isIs_admin();
         this.jbtnCashCount.setVisible(isOptionEnabled);
 
         isOptionEnabled = Boolean.valueOf(ParamHelper.getParam("jfrmVentaMenu.cashCut_enabled").toString());
