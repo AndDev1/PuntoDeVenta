@@ -615,7 +615,7 @@ public class jfrmVenta extends javax.swing.JFrame {
                     if (option == 0) {
                         printTicket(ticketNumber);
                     } else {
-                        printTicket(0);
+                        printTicket(1);
                     }
                 } else {
                     printTicket(ticketNumber);
