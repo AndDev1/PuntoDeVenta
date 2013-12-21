@@ -41,14 +41,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class jfrmVenta extends javax.swing.JFrame {
 
-    private Usuario user = Util.getCurrentUser();
-    private LogHelper objLog = new LogHelper("jfrmVenta");
-    private ProductDAO prodDao = new ProductDAO();
-    private DefaultTableModelExtended tblModel = new DefaultTableModelExtended();
-    private ValidacionForms valid = new ValidacionForms();
-    private int r = Integer.parseInt(ParamHelper.getParam("system.background.colorR").toString());
-    private int g = Integer.parseInt(ParamHelper.getParam("system.background.colorG").toString());
-    private int b = Integer.parseInt(ParamHelper.getParam("system.background.colorB").toString());
+    private final Usuario user = Util.getCurrentUser();
+    private final LogHelper objLog = new LogHelper("jfrmVenta");
+    private final ProductDAO prodDao = new ProductDAO();
+    private final DefaultTableModelExtended tblModel = new DefaultTableModelExtended();
+    private final ValidacionForms valid = new ValidacionForms();
+    private final int r = Integer.parseInt(ParamHelper.getParam("system.background.colorR").toString());
+    private final int g = Integer.parseInt(ParamHelper.getParam("system.background.colorG").toString());
+    private final int b = Integer.parseInt(ParamHelper.getParam("system.background.colorB").toString());
 
     public jfrmVenta() {
         initComponents();
@@ -676,13 +676,16 @@ public class jfrmVenta extends javax.swing.JFrame {
 
     private boolean printTicket(int ticketNumber) {
         try {
-            byte[] pdfBuffer;
-            ReportGenerator repGenerator = new ReportGenerator();
-            pdfBuffer = repGenerator.generateTicketBuffer(String.valueOf(ticketNumber), this.jlblEfectivo.getText(), this.jlblCambio.getText());
+            byte[] pdfBuffer = "".getBytes();
             
-            if(pdfBuffer != null){
-                printService.printArrayPdf(pdfBuffer);
+            if (ticketNumber > 0) {
+                ReportGenerator repGenerator = new ReportGenerator();
+                pdfBuffer = repGenerator.generateTicketBuffer(String.valueOf(ticketNumber), this.jlblEfectivo.getText(), this.jlblCambio.getText());
             }
+            
+//            if(pdfBuffer != null){
+                printService.printArrayPdf(pdfBuffer);
+//            }
             return true;
         } catch (Exception ex) {
             objLog.Log(ex.getMessage());
