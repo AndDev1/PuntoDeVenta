@@ -608,12 +608,17 @@ public class jfrmVenta extends javax.swing.JFrame {
             try {
 
                 restartControls();
+                
                 // Question before print ticket
-                int option = valid.msjOption(TagHelper.getTag("jfrmVenta.printTicketMsg"), TagHelper.getTag("jfrmVenta.printTicketTitle"));
-                if (option == 0) {
+                if (Boolean.valueOf(ParamHelper.getParam("jfrmVenta.printTicketQuestionnEnabled").toString())) {
+                    int option = valid.msjOption(TagHelper.getTag("jfrmVenta.printTicketMsg"), TagHelper.getTag("jfrmVenta.printTicketTitle"));
+                    if (option == 0) {
+                        printTicket(ticketNumber);
+                    } else {
+                        printTicket(0);
+                    }
+                } else {
                     printTicket(ticketNumber);
-                }else {
-                    printTicket(0);
                 }
 
             } catch (Exception e) {
