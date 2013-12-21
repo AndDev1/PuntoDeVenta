@@ -187,8 +187,10 @@ public class jfrmVenta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(235, 122, 122));
         setIconImage(getIconImage());
-        setUndecorated(true);
-        setResizable(false);
+        setUndecorated(Boolean.valueOf(ParamHelper.getParam("system.main.window.undecorated").toString())
+        );
+        setResizable(Boolean.valueOf(ParamHelper.getParam("system.main.window.resizable").toString())
+        );
 
         jpnlTotales.setBackground(new java.awt.Color(255, 102, 102));
         jpnlTotales.setBorder(javax.swing.BorderFactory.createEtchedBorder());
