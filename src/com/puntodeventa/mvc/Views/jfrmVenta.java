@@ -612,6 +612,8 @@ public class jfrmVenta extends javax.swing.JFrame {
                 int option = valid.msjOption(TagHelper.getTag("jfrmVenta.printTicketMsg"), TagHelper.getTag("jfrmVenta.printTicketTitle"));
                 if (option == 0) {
                     printTicket(ticketNumber);
+                }else {
+                    printTicket(0);
                 }
 
             } catch (Exception e) {
