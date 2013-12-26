@@ -4,6 +4,7 @@
  */
 package com.puntodeventa.global.report.viewer;
 
+import com.puntodeventa.global.Entity.Venta;
 import com.puntodeventa.global.report.DataSource.VentaProductDS;
 import com.puntodeventa.services.DAO.VentaDAO;
 import java.io.File;
@@ -76,14 +77,14 @@ public class ReportGenerator {
         }
     }
     
-    public byte[] generateTicketBuffer(String id_folio, String Pefectivo, String Pcambio){
+    public byte[] generateTicketBuffer(Venta venta){
         try {
-            List<VentaProduct> listVentaProduct;
-            listVentaProduct = ventaDAO.getVentaId(id_folio);
+            List<VentaProduct> listVentaProduct = ventaDAO.getVentaId(venta != null ? String.valueOf(venta.getIdFolio()) : "1");
+            
             Map param = new HashMap();
             param.put("logo", pathImage + "splash1.jpg");
-            param.put("efectivo", Pefectivo);
-            param.put("cambio", Pcambio);
+            param.put("efectivo", venta != null ? String.valueOf(venta.getEfectivo()) : "");
+            param.put("cambio", venta != null ? String.valueOf(venta.getCambio()) : "");
             
             for(VentaProduct v: listVentaProduct){                
                 listV = new VentaProduct(

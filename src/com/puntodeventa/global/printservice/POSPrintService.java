@@ -4,8 +4,10 @@
  */
 package com.puntodeventa.global.printservice;
 
+import com.puntodeventa.global.Entity.Venta;
 import com.puntodeventa.global.Enum.PrintType;
-import com.puntodeventa.global.Util.ParamHelper;
+import com.puntodeventa.global.Util.LogHelper;
+import com.puntodeventa.global.report.viewer.ReportGenerator;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,7 +28,9 @@ import org.icepdf.ri.common.views.DocumentViewControllerImpl;
  *
  * @author Nato
  */
-public class printService {
+public class POSPrintService {
+    
+    private static final LogHelper objLog = new LogHelper("POSPrintService");    
 
     /*
      * Imprime archivo en la impresora predeterminada del equipo
@@ -45,13 +49,12 @@ public class printService {
 
         // mi impresora por default
         PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-        System.out.println("Impresora: " + service.getName());
 
         Doc docPrint;
         try {
             docPrint = new SimpleDoc(new FileInputStream(file), docFlavor, null);
-        } catch (FileNotFoundException e1) {
-            System.out.println("Archivo no encontrado: " + e1.getMessage());
+        } catch (FileNotFoundException e) {            
+            objLog.Log(e.getMessage());
             return;
         }
 
@@ -59,9 +62,8 @@ public class printService {
         DocPrintJob printJob = service.createPrintJob();
         try {
             printJob.print(docPrint, aset);
-            System.out.println("salida...");
         } catch (PrintException e) {
-            System.out.println("Error de impresion: " + e.getMessage());
+            objLog.Log(e.getMessage());
         }
     }
 
@@ -110,26 +112,30 @@ public class printService {
         }
     }
 
-    public static void printArrayPdf(byte[] pdfBuffer) throws PDFSecurityException {
+    public static void printTicket(Venta venta) throws PDFSecurityException {
+        
+        ReportGenerator repGenerator = new ReportGenerator();
+        byte[] pdfBuffer = null;
+        
         try {
-
-            Document pdf = new Document() {
-            };
+            
+            pdfBuffer = repGenerator.generateTicketBuffer(venta);
+            Document pdf = new Document() {};
             pdf.setByteArray(pdfBuffer, 0, pdfBuffer.length, null);
-            SwingController sc = new SwingController();
-            DocumentViewController vc = new DocumentViewControllerImpl(sc);
+            
+            
+            DocumentViewController vc = new DocumentViewControllerImpl(new SwingController());
             vc.setDocument(pdf);
-            // create a new print helper with a specified paper size and print
-            // quality
-            PrintHelper printHelper = new PrintHelper(vc, pdf.getPageTree(),
-                    MediaSizeName.NA_LEGAL, PrintQuality.DRAFT);
-            // try and print pages 1 - 10, 1 copy, scale to fit paper.
-            PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+            
+            // create a new print helper with a specified paper size and print quality
+            PrintHelper printHelper = new PrintHelper(vc, pdf.getPageTree(), MediaSizeName.NA_LEGAL, PrintQuality.DRAFT);
 
             //printHelper.setupPrintService(defaultService, 0, 9, 1, true);
-            printHelper.setupPrintService(defaultService, 0, 0, 1, true);
+            printHelper.setupPrintService(PrintServiceLookup.lookupDefaultPrintService(), 0, 0, 1, true);
+            
             // print the document
             printHelper.print();
+            
         } catch (PrintException ex) {
             System.out.println("1: " + ex.getMessage());
         } catch (org.icepdf.core.exceptions.PDFException ex) {
@@ -140,4 +146,34 @@ public class printService {
             System.out.println("4: " + ex.getMessage());
         }
     }
+
+    public static void printArrayPdf(byte[] pdfBuffer) throws PDFSecurityException {
+        try {
+
+            Document pdf = new Document() {};
+            pdf.setByteArray(pdfBuffer, 0, pdfBuffer.length, null);
+
+            DocumentViewController vc = new DocumentViewControllerImpl(new SwingController());
+            vc.setDocument(pdf);
+
+            // create a new print helper with a specified paper size and print quality
+            PrintHelper printHelper = new PrintHelper(vc, pdf.getPageTree(), MediaSizeName.NA_LEGAL, PrintQuality.DRAFT);
+
+            //printHelper.setupPrintService(defaultService, 0, 9, 1, true);
+            printHelper.setupPrintService(PrintServiceLookup.lookupDefaultPrintService(), 0, 0, 1, true);
+
+            // print the document
+            printHelper.print();
+
+        } catch (PrintException ex) {
+            System.out.println("1: " + ex.getMessage());
+        } catch (org.icepdf.core.exceptions.PDFException ex) {
+            System.out.println("2: " + ex.getMessage());
+        } catch (PDFSecurityException ex) {
+            System.out.println("3: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("4: " + ex.getMessage());
+        }
+    }
+    
 }

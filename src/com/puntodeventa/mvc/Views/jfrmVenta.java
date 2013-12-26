@@ -4,7 +4,6 @@ import com.puntodeventa.global.Entity.Product;
 import com.puntodeventa.global.Entity.Usuario;
 import com.puntodeventa.global.Entity.Venta;
 import com.puntodeventa.global.Entity.VentaDetalle;
-import com.puntodeventa.global.Enum.PrintType;
 import com.puntodeventa.global.Util.Constants.Command;
 import com.puntodeventa.global.Util.Constants.ShortCuts;
 import com.puntodeventa.global.Util.Constants.TableColumns;
@@ -14,9 +13,7 @@ import com.puntodeventa.global.Util.ParamHelper;
 import com.puntodeventa.global.Util.TagHelper;
 import com.puntodeventa.global.Util.Util;
 import com.puntodeventa.global.Util.ValidacionForms;
-import com.puntodeventa.global.printservice.PrintServiceThread;
-import com.puntodeventa.global.printservice.printService;
-import com.puntodeventa.global.report.viewer.ReportGenerator;
+import com.puntodeventa.global.printservice.POSPrintService;
 import com.puntodeventa.mvc.Controller.VentaLogic;
 import com.puntodeventa.mvc.Controller.VentadDetalleLogic;
 import com.puntodeventa.services.DAO.ProductDAO;
@@ -34,6 +31,7 @@ import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import org.icepdf.core.exceptions.PDFSecurityException;
 
 /**
  *
@@ -452,7 +450,7 @@ public class jfrmVenta extends javax.swing.JFrame {
                 }
             }
 
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             objLog.Log(ex.getMessage());
         }
     }//GEN-LAST:event_txtKeyTyped
@@ -578,8 +576,6 @@ public class jfrmVenta extends javax.swing.JFrame {
 
         } catch (NumberFormatException nfe) {
             objLog.Log(nfe.getMessage());
-        } catch (Exception ex) {
-            objLog.Log(ex.getMessage());
         }
 
         venta = new Venta();
@@ -613,15 +609,15 @@ public class jfrmVenta extends javax.swing.JFrame {
                 if (Boolean.valueOf(ParamHelper.getParam("jfrmVenta.printTicketQuestionnEnabled").toString())) {
                     int option = valid.msjOption(TagHelper.getTag("jfrmVenta.printTicketMsg"), TagHelper.getTag("jfrmVenta.printTicketTitle"));
                     if (option == 0) {
-                        printTicket(ticketNumber);
+                        POSPrintService.printTicket(venta);
                     } else {
-                        printTicket(1);
+                        POSPrintService.printTicket(null);
                     }
                 } else {
-                    printTicket(ticketNumber);
+                    POSPrintService.printTicket(venta);
                 }
 
-            } catch (Exception e) {
+            } catch (PDFSecurityException e) {
                 objLog.Log("Possible cause: Error while printing. " + e.getMessage());
             }
 
@@ -657,9 +653,7 @@ public class jfrmVenta extends javax.swing.JFrame {
             }
         } catch (NumberFormatException nfe) {
             objLog.Log(nfe.getMessage());
-        } catch (UnsupportedOperationException | ClassCastException | NullPointerException nfe) {
-            objLog.Log(nfe.getMessage());
-        } catch (IllegalArgumentException nfe) {
+        } catch (UnsupportedOperationException | ClassCastException | NullPointerException | IllegalArgumentException nfe) {
             objLog.Log(nfe.getMessage());
         }
 
@@ -681,25 +675,6 @@ public class jfrmVenta extends javax.swing.JFrame {
         }
     }
 
-    private boolean printTicket(int ticketNumber) {
-        try {
-            byte[] pdfBuffer = "".getBytes();
-            
-            if (ticketNumber > 0) {
-                ReportGenerator repGenerator = new ReportGenerator();
-                pdfBuffer = repGenerator.generateTicketBuffer(String.valueOf(ticketNumber), this.jlblEfectivo.getText(), this.jlblCambio.getText());
-            }
-            
-//            if(pdfBuffer != null){
-                printService.printArrayPdf(pdfBuffer);
-//            }
-            return true;
-        } catch (Exception ex) {
-            objLog.Log(ex.getMessage());
-            return false;
-        }
-
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlblAttendedBy;

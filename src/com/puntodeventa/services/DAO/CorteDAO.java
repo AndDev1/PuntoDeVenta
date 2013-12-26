@@ -7,7 +7,7 @@ import com.puntodeventa.global.Entity.Venta;
 import com.puntodeventa.global.Enum.PrintType;
 import com.puntodeventa.global.Util.LogHelper;
 import com.puntodeventa.global.Util.Util;
-import com.puntodeventa.global.printservice.printService;
+import com.puntodeventa.global.printservice.POSPrintService;
 import com.puntodeventa.global.report.viewer.printCorte;
 import com.puntodeventa.mvc.Controller.VentaLogic;
 import java.util.*;
@@ -187,7 +187,7 @@ public class CorteDAO {
             }
             try {
                 if (pdfBuffer != null){
-                    printService.printArrayPdf(pdfBuffer);
+                    POSPrintService.printArrayPdf(pdfBuffer);
                 }else{
                     objLog.Log("pdfBuffer is null");
                 }

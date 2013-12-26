@@ -1,19 +1,17 @@
 package com.puntodeventa.mvc.Views;
 
 import com.puntodeventa.global.Entity.Venta;
-import com.puntodeventa.global.Enum.PrintType;
-import com.puntodeventa.global.Util.ParamHelper;
+import com.puntodeventa.global.Util.LogHelper;
 import com.puntodeventa.global.Util.TagHelper;
 import com.puntodeventa.global.Util.Util;
 import com.puntodeventa.global.Util.ValidacionForms;
-import com.puntodeventa.global.printservice.PrintServiceThread;
-import com.puntodeventa.global.report.viewer.ReportGenerator;
+import com.puntodeventa.global.printservice.POSPrintService;
 import com.puntodeventa.mvc.Controller.VentaLogic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Calendar;
 import javax.swing.JButton;
+import org.icepdf.core.exceptions.PDFSecurityException;
 
 /**
  * @author USER
@@ -21,6 +19,7 @@ import javax.swing.JButton;
 public class jfrmVentaMenuPrintTicket extends javax.swing.JDialog {
 
     private ValidacionForms valid = new ValidacionForms();
+    private final LogHelper objLog = new LogHelper("jfrmVentaMenuPrintTicket");
 
     public jfrmVentaMenuPrintTicket(jfrmVenta parent, boolean modal) {
         super(parent, modal);
@@ -98,31 +97,13 @@ public class jfrmVentaMenuPrintTicket extends javax.swing.JDialog {
                         break;
                 }
                 
-                if(Util.isNumeric(ticketNumber)){
-                    
-                    File report = new File(ParamHelper.getParam("tickets.path.location").toString().replace("_ticketNumber_", ticketNumber));
-                    Venta venta = new Venta();
-                    boolean flagCorrect = false;
-                    
-                    if(!report.exists()){
-                        
-                        VentaLogic vtaLogic = new VentaLogic();
-                        venta = vtaLogic.getVenta(Integer.parseInt(ticketNumber));
-                        
-                        ReportGenerator repGenerator = new ReportGenerator();
-                        flagCorrect = repGenerator.generateTicket(String.valueOf(venta.getIdFolio()), String.valueOf(venta.getEfectivo()), String.valueOf(venta.getCambio()));
+                if (Util.isNumeric(ticketNumber)) {
+                    try {
+                        Venta v = vl.getVenta(Integer.parseInt(ticketNumber));
+                        POSPrintService.printTicket(v);
+                    } catch (PDFSecurityException ex) {
+                        objLog.Log(ex.getMessage());
                     }
-                    
-                    if ((flagCorrect && venta.getIdFolio()>0) || (report.exists())) {
-                        
-                        PrintServiceThread printService = new PrintServiceThread(PrintType.VENTA, ticketNumber);
-                        Thread thread = new Thread(printService);
-                        thread.setPriority(Thread.NORM_PRIORITY);
-                        thread.start();
-                        
-                    }else{
-                        valid.msjErr(TagHelper.getTag("jfrmVentaMenuPrintTicket.notAbleToPrintTicket"));
-                    }                    
                 }
             }
         };
